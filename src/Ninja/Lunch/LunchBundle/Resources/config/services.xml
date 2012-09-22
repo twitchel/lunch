@@ -1,0 +1,73 @@
+<?xml version="1.0" ?>
+
+<container xmlns="http://symfony.com/schema/dic/services"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <parameters>
+        <parameter key="ninja_lunch.acl_manager.class">Ninja\Lunch\LunchBundle\Security\Manager</parameter>
+        <parameter key="ninja_lunch.navbar.titleRoute">orders</parameter>
+        <parameter key="ninja_lunch.navbar.builder.class">Ninja\Lunch\LunchBundle\Menu\NavbarMenuBuilder</parameter>
+        <parameter key="ninja_lunch.menu.sidebar_builder.class">Ninja\Lunch\LunchBundle\Menu\SidebarMenuBuilder</parameter>
+
+        <parameter key="ninja_lunch.order_repo.class">Ninja\Lunch\LunchBundle\Entity\FoodOrderRepository</parameter>
+        <parameter key="ninja_lunch.order_item_repo.class">Ninja\Lunch\LunchBundle\Entity\FoodOrder\ItemRepository</parameter>
+        <parameter key="ninja_lunch.food_item_repo.class">Ninja\Lunch\LunchBundle\Entity\FoodItemRepository</parameter>
+        <parameter key="ninja_lunch.menu.request_voter.class">Ninja\Lunch\LunchBundle\Menu\RouteVoter</parameter>
+    </parameters>
+
+    <services>
+        <service id="ninja_lunch.acl_manager" class="%ninja_lunch.acl_manager.class%">
+            <argument type="service" id="security.acl.provider" />
+            <argument type="service" id="security.context" />
+        </service>
+        <service id="ninja_lunch.navbar" class="%mopa_bootstrap.navbar.generic%" scope="request">
+            <argument type="collection">
+                <argument type="service" key="leftmenu" id="ninja_lunch.navbar.leftmenu" strict="false"/>
+                <argument type="service" key="rightmenu" id="ninja_lunch.navbar.rightmenu" strict="false"/>
+            </argument>
+            <argument type="collection">
+               <!-- <argument key="searchform">Mopa\Bundle\BootstrapSandboxBundle\Form\Type\ExampleSearchFormType</argument> -->
+            </argument>
+            <argument type="collection">
+                <argument key="title">Lunch</argument>
+                <argument key="titleRoute">%ninja_lunch.navbar.titleRoute%</argument>
+                <argument key="fixedTop">false</argument>
+                <argument key="isFluid">false</argument>
+                <argument key="template">MopaBootstrapBundle:Navbar:navbar.html.twig</argument>
+            </argument>
+            <tag name="mopa_bootstrap.navbar" alias="frontendNavbar" />
+        </service>
+
+        <service id="ninja_lunch.navbar.builder" class="%ninja_lunch.navbar.builder.class%" scope="request">
+            <argument type="service" id="knp_menu.factory" />
+            <argument type="service" id="security.context" />
+        </service>
+
+        <service id="ninja_lunch.navbar.leftmenu" class="Knp\Menu\MenuItem" factory-service="ninja_lunch.navbar.builder" factory-method="createLeftMenu" scope="request">
+            <argument type="service" id="request" />
+            <tag name="knp_menu.menu" alias="main" />
+        </service>
+
+        <service id="ninja_lunch.navbar.rightmenu" class="Knp\Menu\MenuItem" factory-service="ninja_lunch.navbar.builder" factory-method="createRightMenu" scope="request">
+            <argument type="service" id="request" />
+            <tag name="knp_menu.menu" alias="main" />
+        </service>
+        <service id="ninja_lunch.menu.request_voter" class="%ninja_lunch.menu.request_voter.class%">
+            <argument type="service" id="service_container" />
+            <tag name="knp_menu.voter" />
+        </service>
+
+
+        <service id="ninja_lunch.order_repo" class="%ninja_lunch.order_repo.class%" factory-service="doctrine.orm.entity_manager" factory-method="getRepository">
+            <argument>NinjaLunchBundle:FoodOrder</argument>
+        </service>
+        <service id="ninja_lunch.order_item_repo" class="%ninja_lunch.order_item_repo.class%" factory-service="doctrine.orm.entity_manager" factory-method="getRepository">
+            <argument>NinjaLunchBundle:FoodOrder\Item</argument>
+        </service>
+        <service id="ninja_lunch.food_item_repo" class="%ninja_lunch.food_item_repo.class%" factory-service="doctrine.orm.entity_manager" factory-method="getRepository">
+            <argument>NinjaLunchBundle:FoodItem</argument>
+        </service>
+
+    </services>
+</container>

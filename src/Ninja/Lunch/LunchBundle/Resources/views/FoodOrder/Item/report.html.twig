@@ -1,0 +1,26 @@
+<table class="records_list table table-hover table-bordered">
+    <thead>
+        <tr>
+            <th>Item</th>
+            <th>Count</th>
+            <th>Price</th>
+        </tr>
+    </thead>
+    <tbody>
+    {% for detail in report %}
+    {% set item = detail.item %}
+    {% set total = detail.total %}
+    <tr>
+            <td>
+                {{ item.name }}
+            </td>
+            <td>
+                {{ total }}
+            </td>
+            <td>
+                $ {{ item.price * total | number_format(2) }}
+            </td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>

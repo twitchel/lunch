@@ -1,0 +1,46 @@
+<table class="records_list table table-hover table-bordered">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>For</th>
+            <th>Comments</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+    {% for entity in paginator %}
+    <tr>
+            <td>
+                <a href="{{ path('order_items_show', { 'id': entity.id }) }}">
+                    {{ entity.item.name }}
+                </a>
+            </td>
+            <td>
+                <a href="{{ path('user_profile', { username: entity.user }) }}">
+                    {{ entity.user }}
+                </a>
+            </td>
+            <td>
+                {{ entity.comments }}
+            </td>
+            <td width="160px">
+                <div class="btn-group pull-right">
+                    <a class="btn" href="{{ path('order_items_show', { 'id': entity.id }) }}">
+                        <i class="icon-list"></i> View
+                    </a>
+                    <a class="btn" href="{{ path('order_items_edit', { 'item': entity.id }) }}">
+                        <i class="icon-pencil"></i> Edit
+                    </a>
+                </div>
+            </td>
+        </tr>
+    {% endfor %}
+    </tbody>
+    <tfoot>
+        <tr>
+            <td colspan="4">
+                <div class="navigation pagination-centered">{{ paginator.render | raw }}</div>
+            </td>
+        </tr>
+    </tfoot>
+</table>

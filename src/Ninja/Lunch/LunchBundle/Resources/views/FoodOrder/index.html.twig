@@ -1,0 +1,34 @@
+{% extends "NinjaLunchBundle::layout.base.twig" %}
+{% block headline %}
+Order List
+{% endblock %}
+{% block content %}
+<p>
+    <a href="{{ path('orders_current') }}" class="btn btn-primary">Todays Order</a>
+</p>
+<table class="records_list table table-hover table-bordered">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Date</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+    {% for entity in entities %}
+        <tr>
+            <td><a href="{{ path('orders_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
+            <td>{% if entity.date %}{{ entity.date|date('Y-m-d H:i:s') }}{% endif %}</td>
+            <td>
+                <ul>
+                    <li>
+                        <a href="{{ path('orders_show', { 'id': entity.id }) }}">show</a>
+                    </li>
+                </ul>
+            </td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
+
+{% endblock %}

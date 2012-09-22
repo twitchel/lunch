@@ -1,15 +1,20 @@
 parameters:
-    database_driver:   pdo_mysql
-    database_host:     localhost
-    database_port:     ~
-    database_name:     symfony
-    database_user:     root
+    database_driver: pdo_mysql
+    database_host: localhost
+    database_port: ~
+    database_name: lunch
+    database_user: root
     database_password: ~
+    mailer_transport: smtp
+    mailer_host: localhost
+    mailer_user: ~
+    mailer_password: ~
+    locale: en
+    secret: a60d783dbb717c89c59cdb4439d92ea9
+    database_path: ~
 
-    mailer_transport:  smtp
-    mailer_host:       localhost
-    mailer_user:       ~
-    mailer_password:   ~
+    env.bin.node:      /usr/local/bin/node
+    env.path.node_modules: [/usr/local/share/npm/lib/node_modules/, /usr/local/lib/node_modules/]
 
-    locale:            en
-    secret:            ThisTokenIsNotSoSecretChangeIt
+    knp_menu.renderer.twig.template: NinjaLunchBundle:Menu:menu.html.twig
+    knp_paginator.template.pagination: NinjaLunchBundle:Pagination:sliding.html.twig

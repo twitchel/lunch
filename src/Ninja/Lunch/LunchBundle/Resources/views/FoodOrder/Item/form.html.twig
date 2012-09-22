@@ -1,0 +1,10 @@
+{% if entity.id %}
+    {% set formPath = path('order_items_update', { 'item': entity.id }) %}
+{% else %}
+    {% set formPath = path('order_items_create', { 'item': null }) %}
+{% endif %}
+
+<form action="{{ formPath }}" method="post" {{ form_enctype(form) }}>
+    {{ form_widget(form) }}
+    <input type="submit" class="btn save" value="Save">
+</form>

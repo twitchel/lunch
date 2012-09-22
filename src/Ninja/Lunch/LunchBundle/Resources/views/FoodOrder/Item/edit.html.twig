@@ -1,0 +1,17 @@
+{% extends "NinjaLunchBundle::layout.base.twig" %}
+{% block headline %}
+Edit item
+{% endblock %}
+{% block content %}
+
+{% render "NinjaLunchBundle:FoodOrder/Item:form" with { id: entity.id, order: entity.order.id }, { standalone: true } %}
+<ul class="record_actions btn-group">
+    <a href="{{ path('order_items') }}" class="btn">
+        Back to the list
+    </a>
+    <form action="{{ path('order_items_delete', { 'item': entity.id }) }}" method="post" class="btn">
+        {{ form_widget(delete_form) }}
+        <button type="submit">Delete</button>
+    </form>
+</ul>
+{% endblock %}

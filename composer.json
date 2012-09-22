@@ -1,36 +1,49 @@
 {
-    "name": "symfony/framework-standard-edition",
-    "description": "The \"Symfony Standard Edition\" distribution",
+    "name": "codingninja/lunch",
+    "description": "Order lunch",
     "autoload": {
         "psr-0": { "": "src/" }
     },
     "require": {
-        "php": ">=5.3.3",
-        "symfony/symfony": "2.2.*",
-        "doctrine/orm": ">=2.2.3,<2.4-dev",
-        "doctrine/doctrine-bundle": "1.0.*",
-        "twig/extensions": "1.0.*",
-        "symfony/assetic-bundle": "2.1.*",
-        "symfony/swiftmailer-bundle": "2.1.*",
-        "symfony/monolog-bundle": "2.1.*",
-        "sensio/distribution-bundle": "2.1.*",
+        "php"                          : ">=5.3.3",
+        "symfony/symfony"              : "2.*",
+        "doctrine/orm"                 : ">=2.2.3,<2.4-dev",
+        "doctrine/doctrine-bundle"     : "1.0.*",
+        "twig/extensions"              : "1.0.*",
+        "symfony/assetic-bundle"       : "2.1.*",
+        "symfony/swiftmailer-bundle"   : "2.1.*",
+        "symfony/monolog-bundle"       : "2.1.*",
+        "sensio/distribution-bundle"   : "2.1.*",
         "sensio/framework-extra-bundle": "2.1.*",
-        "sensio/generator-bundle": "2.1.*",
-        "jms/security-extra-bundle": "1.3.*",
-        "jms/di-extra-bundle": "1.2.*"
+        "sensio/generator-bundle"      : "2.1.*",
+        "jms/security-extra-bundle"    : "1.2.*",
+        "jms/di-extra-bundle"          : "1.1.*",
+        "jms/serializer-bundle"        : "0.9.*",
+        "mopa/bootstrap-bundle"        : "dev-master",
+        "twitter/bootstrap"            : "master",
+        "knplabs/knp-paginator-bundle" : "dev-master",
+        "knplabs/knp-menu-bundle"      : "dev-master",
+        "friendsofsymfony/user-bundle" : "dev-master",
+        "knplabs/knp-gaufrette-bundle" : "dev-master",
+        "genemu/form-bundle"           : "dev-master",
+        "liip/imagine-bundle"          : "dev-master",
+        "friendsofsymfony/rest-bundle" : "dev-master",
+        "raulfraile/ladybug-bundle"    : "dev-master"
     },
     "scripts": {
         "post-install-cmd": [
             "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::buildBootstrap",
             "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::clearCache",
             "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::installAssets",
-            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::installRequirementsFile"
+            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::installRequirementsFile",
+            "Mopa\\Bundle\\BootstrapBundle\\Composer\\ScriptHandler::postInstallSymlinkTwitterBootstrap"
         ],
         "post-update-cmd": [
             "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::buildBootstrap",
             "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::clearCache",
             "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::installAssets",
-            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::installRequirementsFile"
+            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::installRequirementsFile",
+            "Mopa\\Bundle\\BootstrapBundle\\Composer\\ScriptHandler::postInstallSymlinkTwitterBootstrap"
         ]
     },
     "config": {
@@ -40,5 +53,21 @@
     "extra": {
         "symfony-app-dir": "app",
         "symfony-web-dir": "web"
-    }
+    },
+    "repositories": [{
+            "type": "package",
+            "package": {
+                "version": "master",
+                "name": "twitter/bootstrap",
+                "source": {
+                    "url": "https://github.com/twitter/bootstrap.git",
+                    "type": "git",
+                    "reference": "master"
+                },
+                "dist": {
+                    "url": "https://github.com/twitter/bootstrap/zipball/master",
+                    "type": "zip"
+                }
+            }
+    }]
 }
