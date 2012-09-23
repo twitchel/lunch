@@ -86,7 +86,7 @@ class ItemController extends Controller
      */
     public function listAction($order)
     {
-        $page = $this->get('request')->query->get('page', 1);
+        $page = $this->get('request')->get('page', 1);
         $perPage = 10;
 
         $entities = $this->repo->getPaginatedList($order, $page, $perPage);

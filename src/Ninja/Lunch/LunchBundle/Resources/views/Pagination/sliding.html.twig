@@ -16,7 +16,7 @@
             }
         %}
 
-        {% for page in pagesInRange %}
+        {% for page in pagesInRange if page != 0 %}
             {% include item %}
         {% endfor %}
 

@@ -36,11 +36,13 @@ class ItemRepository extends EntityRepository
      *
      * @return Paginator The paginator
      */
-    public function getPaginatedList($order, $page, $perPage){
+    public function getPaginatedList($order, $page = 1, $perPage = 10){
         $qb = $this->createQueryBuilder('i');
 
         $qb
-            ->leftJoin('i.order', 'o')
+            ->select('i', 'o', 'it')
+            ->innerJoin('i.order', 'o')
+            ->innerJoin('i.item', 'it')
             ->andWhere($qb->expr()->eq('o.id', ':idOrder'))
             ->setParameter('idOrder', $order)
             ->orderBy($qb->expr()->desc('i.id'))
@@ -60,7 +62,7 @@ class ItemRepository extends EntityRepository
      * @param integer $id The current page
      * @param integer $id The amount of items to show per page
      *
-     * @return Paginator The paginator
+     * @return FoodOrder The users faveourite food order
      */
     public function getFaveouriteForUser($user){
         $qb = $this->createQueryBuilder('i');
