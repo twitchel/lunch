@@ -1,0 +1,15 @@
+<form action="{{ path('order_items_payment_new', { 'id': entity.id, 'order': entity.order.id }) }}" method="post" {{ form_enctype(form) }}>
+    <div class="modal hide fade" id="{{ app.request.get('modalId') }}">
+        <div class="modal-header ">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+            <h3>Add Payment</h3>
+        </div>
+        <div class="modal-body">
+            {{ form_widget(form) }}
+        </div>
+        <div class="modal-footer">
+            <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
+            <input type="submit" class="btn-primary btn save" value="Add Payment">
+        </div>
+    </div>
+</form>

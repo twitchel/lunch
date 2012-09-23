@@ -35,7 +35,7 @@ class FoodOrder
      *
      * @ORM\Column(name="is_locked", type="boolean")
      */
-    private $locked;
+    private $locked = false;
 
     /**
      * @ORM\OneToMany(targetEntity="Ninja\Lunch\LunchBundle\Entity\FoodOrder\Item", mappedBy="order")
@@ -128,6 +128,46 @@ class FoodOrder
     public function getItems()
     {
         return $this->items;
+    }
+
+    /**
+     * Get price
+     *
+     * @return float The price of this order
+     */
+    public function getPrice()
+    {
+        $price = 0;
+        foreach($this->getItems() as $item) {
+            $price += $item->getPrice();
+        }
+
+        return $price;
+    }
+
+    /**
+     * Get amount paid
+     *
+     * @return float The amount paid for this order
+     */
+    public function getAmountPaid()
+    {
+        $price = 0;
+        foreach($this->getItems() as $item) {
+            $price += $item->getAmountPaid();
+        }
+
+        return $price;
+    }
+
+    /**
+     * Get amount owing
+     *
+     * @return float The amount of money owing on this order
+     */
+    public function getAmountOwing()
+    {
+        return $this->getPrice() - $this->getAmountPaid();
     }
 
     /**

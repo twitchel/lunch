@@ -1,11 +1,48 @@
 {% extends 'MopaBootstrapBundle::base.html.twig' %}
 
+{% block title %}
+    Crackroll Online Ordering System
+{% endblock %}
+
 {% block head_style %}
     {% stylesheets
         '@MopaBootstrapBundle/Resources/public/less/mopabootstrapbundle.less'
+        '@NinjaLunchBundle/Resources/public/css/forms.less'
+        '@NinjaLunchBundle/Resources/public/css/layout.less'
+        '@NinjaLunchBundle/Resources/public/css/pagination.less'
+        '@NinjaLunchBundle/Resources/public/css/comments.css'
     %}
     <link href="{{ asset_url }}" type="text/css" rel="stylesheet" media="screen" />
     {% endstylesheets %}
+    {% javascripts
+        'http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js'
+        '@NinjaLunchBundle/Resources/public/js/core.js'
+    %}
+<script type="text/javascript" src="{{ asset_url }}"></script>
+{% endjavascripts %}
 {% endblock head_style %}
+
+    {% block foot_script %}
+    {#
+        '@MopaBootstrapBundle/Resources/bootstrap/js/bootstrap-scrollspy.js'
+        '@MopaBootstrapBundle/Resources/bootstrap/js/bootstrap-tooltip.js'
+        '@MopaBootstrapBundle/Resources/bootstrap/js/bootstrap-popover.js'
+        '@MopaBootstrapBundle/Resources/bootstrap/js/bootstrap-collapse.js'
+        '@MopaBootstrapBundle/Resources/bootstrap/js/bootstrap-carousel.js'
+        '@MopaBootstrapBundle/Resources/bootstrap/js/bootstrap-typeahead.js'
+     #}
+    {% javascripts
+        '@MopaBootstrapBundle/Resources/bootstrap/js/bootstrap-transition.js'
+        '@MopaBootstrapBundle/Resources/bootstrap/js/bootstrap-modal.js'
+        '@MopaBootstrapBundle/Resources/bootstrap/js/bootstrap-dropdown.js'
+        '@MopaBootstrapBundle/Resources/bootstrap/js/bootstrap-tab.js'
+        '@MopaBootstrapBundle/Resources/bootstrap/js/bootstrap-alert.js'
+        '@MopaBootstrapBundle/Resources/bootstrap/js/bootstrap-button.js'
+        '@MopaBootstrapBundle/Resources/public/js/mopabootstrap-collection.js'
+        '@MopaBootstrapBundle/Resources/public/js/mopabootstrap-subnav.js'
+    %}
+<script type="text/javascript" src="{{ asset_url }}"></script>
+{% endjavascripts %}
+{% endblock foot_script %}
 
 {% block footer %}{% endblock %}

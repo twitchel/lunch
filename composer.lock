@@ -1,5 +1,5 @@
 {
-    "hash": "ef9cca50433e8cf98bb4faeb5afe29d5",
+    "hash": "560f8018cbdb4ee722dcf72461a8db3c",
     "packages": [
         {
             "name": "doctrine/common",
@@ -266,6 +266,74 @@
             "keywords": [
                 "database",
                 "orm"
+            ]
+        },
+        {
+            "name": "friendsofsymfony/comment-bundle",
+            "version": "dev-master",
+            "target-dir": "FOS/CommentBundle",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/FriendsOfSymfony/FOSCommentBundle.git",
+                "reference": "v2.0.1"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://github.com/FriendsOfSymfony/FOSCommentBundle/zipball/v2.0.1",
+                "reference": "v2.0.1",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.2",
+                "symfony/symfony": "2.1.*",
+                "friendsofsymfony/rest-bundle": "*"
+            },
+            "require-dev": {
+                "doctrine/doctrine-bundle": "*",
+                "symfony/assetic-bundle": "*",
+                "friendsofsymfony/user-bundle": "*",
+                "ornicar/akismet-bundle": "*",
+                "behat/behat-bundle": "*",
+                "behat/mink-bundle": "*",
+                "behat/sahi-client": "*",
+                "doctrine/orm": "*"
+            },
+            "suggest": {
+                "friendsofsymfony/user-bundle": "Allows for user integration.",
+                "ornicar/akismet-bundle": "Integrate Akismet for spamdetection."
+            },
+            "time": "1347062933",
+            "type": "symfony-bundle",
+            "installation-source": "source",
+            "autoload": {
+                "psr-0": {
+                    "FOS\\CommentBundle": ""
+                }
+            },
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Thibault Duplessis",
+                    "email": "thibault.duplessis@gmail.com",
+                    "homepage": "http://ornicar.github.com"
+                },
+                {
+                    "name": "Tim Nagel",
+                    "email": "tim@nagel.com.au"
+                },
+                {
+                    "name": "FriendsOfSymfony Community",
+                    "homepage": "https://github.com/friendsofsymfony/FOSCommentBundle/contributors"
+                }
+            ],
+            "description": "This Bundle provides threaded comment functionality for Symfony2 applications",
+            "homepage": "http://friendsofsymfony.github.com",
+            "keywords": [
+                "comment",
+                "threads",
+                "forum"
             ]
         },
         {
@@ -538,7 +606,7 @@
             "require-dev": {
                 "sami/sami": "dev-master"
             },
-            "time": "2012-07-25 16:35:18",
+            "time": "2012-07-24 10:35:18",
             "type": "library",
             "installation-source": "source",
             "autoload": {
@@ -584,7 +652,7 @@
                 "symfony/framework-bundle": "2.*",
                 "jms/cg": "1.0.0"
             },
-            "time": "2011-12-26 12:50:26",
+            "time": "2011-12-25 03:50:26",
             "type": "symfony-bundle",
             "installation-source": "dist",
             "autoload": {
@@ -626,7 +694,7 @@
             "require": {
                 "php": ">=5.3.0"
             },
-            "time": "2011-12-26 12:40:52",
+            "time": "2011-12-25 03:40:52",
             "type": "library",
             "installation-source": "dist",
             "autoload": {
@@ -728,7 +796,7 @@
             "require": {
                 "php": ">=5.3.0"
             },
-            "time": "2011-12-26 13:32:49",
+            "time": "2011-12-25 04:32:49",
             "type": "library",
             "installation-source": "dist",
             "autoload": {
@@ -847,7 +915,7 @@
                 "twig/twig": ">=1.8,<2.0-dev",
                 "doctrine/orm": ">=2.1,<2.4-dev"
             },
-            "time": "2012-09-20 21:23:52",
+            "time": "2012-09-19 15:23:52",
             "type": "symfony-bundle",
             "extra": {
                 "branch-alias": {
@@ -2158,6 +2226,64 @@
             "type": "library",
             "installation-source": "source",
             "time": "1346816651"
+        },
+        {
+            "name": "vich/uploader-bundle",
+            "version": "dev-master",
+            "target-dir": "Vich/UploaderBundle",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/dustin10/VichUploaderBundle",
+                "reference": "c076c85f4bb73fe0cca67d249354b326e6ea32ba"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://github.com/dustin10/VichUploaderBundle/zipball/c076c85f4bb73fe0cca67d249354b326e6ea32ba",
+                "reference": "c076c85f4bb73fe0cca67d249354b326e6ea32ba",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.2",
+                "symfony/framework-bundle": ">=2.0,<2.2-dev"
+            },
+            "require-dev": {
+                "twig/twig": "@stable",
+                "doctrine/orm": "@stable",
+                "doctrine/common": "@stable",
+                "doctrine/dbal": "@stable",
+                "doctrine/mongodb": "dev-master",
+                "doctrine/mongodb-odm": "dev-master",
+                "knplabs/knp-gaufrette-bundle": "dev-master"
+            },
+            "suggest": {
+                "symfony/doctrine-bundle": "*",
+                "symfony/mongodb-odm-bundle": "*",
+                "knplabs/knp-gaufrette-bundle": "*"
+            },
+            "time": "1348002697",
+            "type": "symfony-bundle",
+            "installation-source": "source",
+            "autoload": {
+                "psr-0": {
+                    "Vich\\UploaderBundle": ""
+                }
+            },
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Dustin Dobervich",
+                    "email": "ddobervich@gmail.com",
+                    "homepage": "http://www.dobervich.com"
+                }
+            ],
+            "description": "Ease file uploads attached to entities",
+            "homepage": "https://github.com/dustin10/VichUploaderBundle",
+            "keywords": [
+                "upload",
+                "file uploads"
+            ]
         }
     ],
     "packages-dev": null,
@@ -2174,6 +2300,9 @@
         "genemu/form-bundle": 20,
         "liip/imagine-bundle": 20,
         "friendsofsymfony/rest-bundle": 20,
-        "raulfraile/ladybug-bundle": 20
+        "raulfraile/ladybug-bundle": 20,
+        "friendsofsymfony/comment-bundle": 20,
+        "vich/uploader-bundle": 20,
+        "knplabs/gaufrette": 20
     }
 }

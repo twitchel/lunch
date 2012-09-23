@@ -6,14 +6,14 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 
-class DefaultController extends Controller
+class IndexController extends Controller
 {
     /**
-     * @Route("/profiles/{username}", name="user_profile")
+     * @Route("/", name="index")
      * @Template()
      */
-    public function indexAction($username)
+    public function indexAction()
     {
-        return array('name' => $username);
+        return array();
     }
 }

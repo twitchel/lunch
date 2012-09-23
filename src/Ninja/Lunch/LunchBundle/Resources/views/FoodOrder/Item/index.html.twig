@@ -5,7 +5,7 @@ Item list
 {% block content %}
 {% render "NinjaLunchBundle:FoodOrder/Item:list" with { order: order.id }, { standalone: true } %}
 <div class="btn-group pull-right">
-    <a href="{{ path('orders_show', {id: order.id}) }}" class="btn">
+    <a href="{{ path('orders_show', { id: order.id }) }}" class="btn">
         Back to Order
     </a>
 </div>

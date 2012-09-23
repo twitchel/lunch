@@ -1,6 +1,12 @@
 imports:
     - { resource: parameters.yml }
     - { resource: security.yml }
+    - { resource: images.yml }
+
+sensio_framework_extra:
+    view:    { annotations: false }
+    router:  { annotations: true }
+    request: { converters: true }
 
 framework:
     esi:             ~
@@ -26,7 +32,7 @@ twig:
 assetic:
     debug:          %kernel.debug%
     use_controller: false
-    bundles:        [ MopaBootstrapBundle, NinjaLunchBundle ]
+    bundles:        [ MopaBootstrapBundle, NinjaLunchBundle, FOSCommentBundle ]
     #java: /usr/bin/java
     filters:
         cssrewrite: ~
@@ -76,3 +82,47 @@ mopa_bootstrap:
         show_legend: false # default is true
         show_child_legend: false # default is true
         error_type: block # or inline which is default
+
+knp_gaufrette:
+    adapters:
+        profile_images:
+            local:
+                directory: %kernel.root_dir%/../web/uploads/profile-images/
+                create: true
+
+    filesystems:
+        profile_images_fs:
+            adapter:    profile_images
+
+vich_uploader:
+    db_driver: orm
+    gaufrette: true
+    storage: vich_uploader.storage.gaufrette
+    mappings:
+        profile_image:
+            uri_prefix: /uploads/profile-images
+            upload_destination: profile_images_fs
+            delete_on_remove: true # determines whether to delete file upon removal of entity
+            inject_on_load: false # determines whether to inject a File instance upon load
+
+
+fos_comment:
+    db_driver: orm
+    class:
+        model:
+            comment: Ninja\Lunch\LunchBundle\Entity\Comment
+            thread: Ninja\Lunch\LunchBundle\Entity\Comment\Thread
+
+fos_rest:
+    view:
+        mime_types: {modal: ['text/html'], widget: ['text/html'], html: ['text/html']}
+        templating_formats:
+            widget: true
+            modal: true
+            html: true
+        force_redirects:
+            html: true
+        failed_validation: HTTP_BAD_REQUEST
+        default_engine: twig
+    format_listener:
+        prefer_extension: true

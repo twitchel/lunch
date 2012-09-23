@@ -1,0 +1,8 @@
+{% extends 'NinjaLunchBundle:User:profile.html.twig' %}
+{% block detail_section %}
+<div>
+    <form action="{{ path('user_profile_update', { username: user.username }) }}" method="post" {{ form_enctype(form) }} >
+    {{ form_widget(form) }}
+    <input type="submit" class="btn" value="Save" />
+</div>
+{% endblock %}

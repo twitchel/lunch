@@ -24,8 +24,15 @@ class NavbarMenuBuilder extends AbstractNavbarMenuBuilder
     public function createLeftMenu(Request $request)
     {
         $menu = $this->factory->createItem('root');
+        if(!$this->isLoggedIn) {
+            return $menu;
+        }
+
         $menu->setChildrenAttribute('class', 'nav');
         $this->addDivider($menu, true);
+        $menu->addChild('Home', array('route' => 'index'));
+        $menu->addChild('Orders', array('route' => 'orders'));
+        $menu->addChild('Todays Order', array('route' => 'orders_current'));
 
         return $menu;
     }

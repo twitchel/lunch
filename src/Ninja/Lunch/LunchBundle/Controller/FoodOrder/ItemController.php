@@ -27,7 +27,7 @@ class ItemController extends Controller
     private $session;
 
     /**
-     *
+     * @param Request The request
      */
     private $request;
 
@@ -123,6 +123,7 @@ class ItemController extends Controller
 
         return array(
             'entity'      => $entity,
+            'order'      => $this->getOrder(),
             'delete_form' => $deleteForm->createView(),
         );
     }
@@ -146,9 +147,12 @@ class ItemController extends Controller
             $em->persist($entity);
             $em->flush();
             $this->aclManager->grant($entity);;
+            $this->session->getFlashBag()->add('success', 'Your item was created!');
 
             return $this->redirect($this->generateUrl('order_items_show', array('id' => $entity->getId())));
         }
+
+        $this->session->getFlashBag()->add('warning', 'There were errors with the form!');
 
         return array(
             'entity' => $entity,
@@ -192,9 +196,11 @@ class ItemController extends Controller
         if ($editForm->isValid()) {
             $this->em->persist($item);
             $this->em->flush();
+            $this->session->getFlashBag()->add('success', 'Your item was updated!');
 
-            return $this->redirect($this->generateUrl('order_items_edit', array('item' => $id)));
+            return $this->redirect($this->generateUrl('order_items_edit', array('item' => $item->getId())));
         }
+        $this->session->getFlashBag()->add('warning', 'There were errors with the form!');
 
         return array(
             'entity'      => $item,
@@ -225,6 +231,22 @@ class ItemController extends Controller
     }
 
     /**
+     * Finds and displays a form for the Item entity.
+     *
+     * @Template()
+     */
+    public function deleteFormAction($id) {
+        $form   = $this->createDeleteForm($id);
+        $entity = $this->getItem($id);
+
+        return array(
+            'form'   => $form->createView(),
+            'order'  => $this->getOrder(),
+            'entity'  => $this->getOrder()
+        );
+    }
+
+    /**
      * Deletes a FoodOrder\Item entity.
      *
      * @Route("/{item}/delete", name="order_items_delete")
@@ -239,6 +261,9 @@ class ItemController extends Controller
         if ($form->isValid()) {
             $this->em->remove($item);
             $this->em->flush();
+            $this->session->getFlashBag()->add('success', 'Your item was deleted!');
+        }else{
+            $this->session->getFlashBag()->add('warning', 'Your item was not deleted!');
         }
 
         return $this->redirect($this->generateUrl('order_items'));

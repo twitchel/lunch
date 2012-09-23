@@ -6,7 +6,7 @@
 
     <parameters>
         <parameter key="ninja_lunch.acl_manager.class">Ninja\Lunch\LunchBundle\Security\Manager</parameter>
-        <parameter key="ninja_lunch.navbar.titleRoute">orders</parameter>
+        <parameter key="ninja_lunch.navbar.titleRoute">index</parameter>
         <parameter key="ninja_lunch.navbar.builder.class">Ninja\Lunch\LunchBundle\Menu\NavbarMenuBuilder</parameter>
         <parameter key="ninja_lunch.menu.sidebar_builder.class">Ninja\Lunch\LunchBundle\Menu\SidebarMenuBuilder</parameter>
 

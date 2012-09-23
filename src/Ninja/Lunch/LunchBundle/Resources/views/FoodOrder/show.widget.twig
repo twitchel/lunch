@@ -1,0 +1,76 @@
+{% extends "NinjaLunchBundle::layout.base.twig" %}
+
+{% from 'MopaBootstrapBundle::icons.html.twig' import icon %}
+{% import 'NinjaLunchBundle::macros.html.twig' as macros %}
+{% block headline %}
+Viewing order for {{ entity.date | date('Y-m-d') }}
+{% endblock %}
+
+{% block content %}
+
+{% set orderCount = entity.items | length %}
+{% set
+    itemLabelClass =
+        orderCount == 10 ? 'success' :
+        orderCount >= 6 ?  'info' :
+        orderCount >= 3 ?  'warning' :
+                           'important'
+%}
+{% set participants = entity.participants %}
+
+<div class="row-fluid">
+    <div class="span12">
+        <ul class="nav nav-tabs" id="order-item-tabs">
+            <li class="active"><a data-toggle="tab" href="#order-details-widget">Details</a></li>
+            <li><a data-toggle="tab" href="#add-item-widget">Add Item</a></li>
+        </ul>
+    </div>
+</div>
+<div class="row-fluid">
+    <div class="span12">
+        <div class="tab-content">
+            <div class="tab-pane active" id="order-details-widget">
+                <div class="row-fluid">
+                    <div class="span3 text-align-center">
+                        <h4>Total Orders</h4>
+                        <div class="text-align-center">
+                            <p class="huge-text">{{ entity.items | length }}</p>
+                        </div>
+                    </div>
+                    <div class="span4 offset1">
+                        <h4>Price</h4>
+                        <p class="huge-text">$ {{ entity.price | number_format(2) }}</p>
+                    </div>
+                    <div class="span4">
+                        <h4>Owing</h4>
+                        <p class="huge-text">$ {{ entity.amountOwing | number_format(2) }}</p>
+                    </div>
+                </div>
+                <div class="row-fluid">
+                    <div class="span12">
+                        <div class="span12">
+                            <h4>Participants</h4>
+                            {{ macros.participantList(participants, '', '', '', 'label label-info') }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-pane" id="add-item-widget">
+                <h2>Add Item</h2>
+                <div class="add-item-wrap">
+                    {% if entity.locked %}
+                        <div class="well">
+                            <p>This order is locked, you cannot add items to it.</p>
+                            <p>
+                                <a class="btn" href="{{ path('orders_current') }}">Todays Order</a>
+                            </p>
+                        </div>
+                    {% else %}
+                        {% render "NinjaLunchBundle:FoodOrder/Item:form" with { order: entity.id, _format: 'html' }, { standalone: true } %}
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

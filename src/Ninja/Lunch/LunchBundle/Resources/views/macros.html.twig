@@ -1,0 +1,11 @@
+{% macro participantList(participants, sep, before, after, class) %}
+    {% for participant in participants %}
+    {{ before | default('') | raw }}
+    <a href="{{ path('user_profile', { username: app.user.username }) }}" class="{{ class | default('') }}">
+        {{ participant }}{% if loop.last == false %}{{ sep | default(',') | raw }} {% endif %}
+    </a>
+    {{ after | default('') | raw }}
+    {% else %}
+        No one has participated in this order yet.
+    {% endfor %}
+{% endmacro %}

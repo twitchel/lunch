@@ -5,6 +5,14 @@
 {% endif %}
 
 <form action="{{ formPath }}" method="post" {{ form_enctype(form) }}>
-    {{ form_widget(form) }}
+    <div class="row-fluid">
+        <div class="span6">
+            {{ form_row(form.item) }}
+        </div>
+        <div class="span6">
+            {{ form_row(form.comments, { attr: { class: 'span12', rows: 3 } }) }}
+        </div>
+    </div>
+    {{ form_rest(form) }}
     <input type="submit" class="btn save" value="Save">
 </form>

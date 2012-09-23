@@ -1,1 +1,11 @@
-{% extends (app.request.get('min') ? 'NinjaLunchBundle::base.ajax.twig' : 'NinjaLunchBundle::base.html.twig') %}
+{% extends
+    (
+        app.request.get('min') != null or
+        app.request.get('_route') == '_internal' or
+        app.request.get('_format') == 'widget'
+    ) == true
+    ?
+    'NinjaLunchBundle::base.min.twig' : (
+    app.request.isXmlHttpRequest ? 'NinjaLunchBundle::base.ajax.twig' : 'NinjaLunchBundle::base.html.twig'
+    )
+%}

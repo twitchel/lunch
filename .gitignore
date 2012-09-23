@@ -6,3 +6,5 @@ build/
 vendor
 bin
 composer.phar
+/web/media
+/web/uploads

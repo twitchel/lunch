@@ -57,25 +57,35 @@ class FoodOrderController extends Controller
     }
 
     /**
-     * Lists all FoodOrder entities.
+     * Stats view
      *
-     * @Route("/today", name="orders_current")
+     * @Route("/stats", name="orders_stats")
      * @Template()
      */
-    public function todaysOrderAction()
+    public function statsAction()
+    {
+        return array('stats' => array());
+    }
+
+    /**
+     * Lists all FoodOrder entities.
+     *
+     * @Route("/today.{_format}", defaults={"_format" = "html"}, name="orders_current")
+     * @Template()
+     */
+    public function todaysOrderAction($_format)
     {
         $order = $this->repo->getCurrent();
-
-        return $this->forward('NinjaLunchBundle:FoodOrder:show', array('id' => $order->getId()));
+        return $this->forward('NinjaLunchBundle:FoodOrder:show', array('id' => $order->getId(), '_format' => $_format));
     }
 
     /**
      * Finds and displays a FoodOrder entity.
      *
-     * @Route("/{id}/show", name="orders_show")
+     * @Route("/{id}/show.{_format}", defaults={"_format" = "html"}, name="orders_show")
      * @Template()
      */
-    public function showAction($id)
+    public function showAction($id, $_format)
     {
         $entity = $this->getOrder($id);
 
@@ -102,6 +112,12 @@ class FoodOrderController extends Controller
         return $this->redirect($this->generateUrl('orders_show', array('id' => $entity->getId())));
     }
 
+    /**
+     * Get an order from it's ID
+     *
+     * @param $id integer The orders id
+     * @throws NotFoundException Thrown if the order is not found
+     */
     private function getOrder($id){
         $entity = $this->repo->find($id);
 

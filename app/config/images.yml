@@ -1,0 +1,10 @@
+liip_imagine:
+    filter_sets:
+        profile_photo:
+            quality: 75
+            filters:
+                thumbnail: { size: [ 120, 90 ], mode: outset }
+        preview:
+            quality: 100
+            filters:
+                resize: { size: [400, 100], allow_upscale: true }

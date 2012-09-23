@@ -1,3 +1,4 @@
+{% set randId = app.request.get('modal_prefix', random()) %}
 <table class="records_list table table-hover table-bordered">
     <thead>
         <tr>
@@ -9,8 +10,18 @@
     </thead>
     <tbody>
     {% for entity in paginator %}
+    {% set modalId = 'addPayment'~randId~'Modal-' ~ entity.id %}
     <tr>
             <td>
+                {% render "NinjaLunchBundle:FoodOrder/Payment:add" with
+                    {
+                        order: entity.order.id,
+                        id: entity.id,
+                        _format: 'modal',
+                        modalId: modalId
+                    },
+                    { standalone: true }
+                %}
                 <a href="{{ path('order_items_show', { 'id': entity.id }) }}">
                     {{ entity.item.name }}
                 </a>
@@ -23,17 +34,37 @@
             <td>
                 {{ entity.comments }}
             </td>
-            <td width="160px">
+            <td width="60px">
                 <div class="btn-group pull-right">
-                    <a class="btn" href="{{ path('order_items_show', { 'id': entity.id }) }}">
-                        <i class="icon-list"></i> View
-                    </a>
-                    <a class="btn" href="{{ path('order_items_edit', { 'item': entity.id }) }}">
-                        <i class="icon-pencil"></i> Edit
-                    </a>
+                  <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
+                    <i class="icon-cog"></i>
+                    <span class="caret"></span>
+                  </a>
+                  <ul class="dropdown-menu">
+                    <li>
+                        <a href="{{ path('order_items_show', { 'id': entity.id }) }}">
+                            <i class="icon-list"></i> View
+                        </a>
+                    </li>
+                    <li>
+                        <a data-toggle="modal"  href="#{{ modalId }}">
+
+                            <i class="icon-pencil"></i> Update Payment
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ path('order_items_edit', { 'item': entity.id }) }}">
+                            <i class="icon-pencil"></i> Edit
+                        </a>
+                    </li>
+                  </ul>
                 </div>
             </td>
         </tr>
+    {% else %}
+        <tr>
+            <td colspan="4">No items have been added to this order</td>
+        <tr>
     {% endfor %}
     </tbody>
     <tfoot>

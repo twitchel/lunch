@@ -1,0 +1,7 @@
+{% set content = block('content') %}
+
+{{ {
+    payload: content | e('js'),
+    messages: app.session.flashBag.all | e('js')
+} | json_encode | raw
+}}

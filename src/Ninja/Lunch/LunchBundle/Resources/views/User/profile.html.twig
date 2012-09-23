@@ -1,0 +1,20 @@
+{% extends 'NinjaLunchBundle::layout.base.twig' %}
+
+{% block headline %}
+    Profile for {{ user.username }}
+{% endblock %}
+
+{% block content %}
+    <div class="row-fluid">
+        <div class="span6 well">
+            <h2>User Details</h2>
+            {% block detail_section %}
+            <div>{% render 'NinjaLunchBundle:User:details' with {username: user.username}, {} %}</div>
+            {% endblock %}
+        </div>
+        <div class="span6 well">
+            <h2>Your recent orders</h2>
+            {% render "NinjaLunchBundle:User:recentOrders" with { id: app.user.id }, { standalone: true } %}
+        </div>
+    </div>
+{% endblock %}

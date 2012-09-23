@@ -10,7 +10,7 @@
     {% for detail in report %}
     {% set item = detail.item %}
     {% set total = detail.total %}
-    <tr>
+        <tr>
             <td>
                 {{ item.name }}
             </td>
@@ -21,6 +21,10 @@
                 $ {{ item.price * total | number_format(2) }}
             </td>
         </tr>
+    {% else %}
+        <tr>
+            <td colspan="3">No items have been added to this order</td>
+        <tr>
     {% endfor %}
     </tbody>
 </table>

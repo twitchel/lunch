@@ -1,0 +1,18 @@
+{% extends 'NinjaLunchBundle::layout.base.twig' %}
+
+{% block headline %}
+    Crackroll Ordering
+{% endblock %}
+
+{% block content %}
+    <div class="row-fluid">
+        <div class="span6 well">
+            <h2>Today's Order</h2>
+            {% render "NinjaLunchBundle:FoodOrder:todaysOrder" with {'_format': 'widget'}, { standalone: true } %}
+        </div>
+        <div class="span6 well">
+            <h2>Your recent orders</h2>
+            {% render "NinjaLunchBundle:User:recentOrders" with { id: app.user.id }, { standalone: true } %}
+        </div>
+    </div>
+{% endblock %}

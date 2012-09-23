@@ -1,0 +1,22 @@
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <th>Item</th>
+            <th>Price</th>
+            <th>Date</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for entity in entities %}
+        <tr>
+            <td>
+                <a href="{{ path('order_items_show', { 'id': entity.id, 'order': entity.order.id }) }}">
+                    {{ entity.item.name }}
+                </a>
+            </td>
+            <td>${{ entity.price | number_format(2) }}</td>
+            <td>{{ entity.order.date | date('Y-m-d') }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>

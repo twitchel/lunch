@@ -29,6 +29,13 @@ class Item
     private $comments;
 
     /**
+     * @var string $amountPaid
+     *
+     * @ORM\Column(name="amount_paid", type="float")
+     */
+    private $amountPaid = 0;
+
+    /**
      * @var string $comments
      *
      * @ORM\ManyToOne(targetEntity="Ninja\Lunch\LunchBundle\Entity\User", inversedBy="items")
@@ -148,6 +155,29 @@ class Item
     public function getOrder()
     {
         return $this->order;
+    }
+
+    /**
+     * Set amountPaid
+     *
+     * @param string $amountPaid
+     * @return Item
+     */
+    public function setAmountPaid($amountPaid)
+    {
+        $this->amountPaid = $amountPaid;
+
+        return $this;
+    }
+
+    /**
+     * Get amountPaid
+     *
+     * @return string
+     */
+    public function getAmountPaid()
+    {
+        return $this->amountPaid;
     }
 
     /**

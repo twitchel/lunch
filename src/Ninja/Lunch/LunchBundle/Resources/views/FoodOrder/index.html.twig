@@ -18,13 +18,9 @@ Order List
     {% for entity in entities %}
         <tr>
             <td><a href="{{ path('orders_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
-            <td>{% if entity.date %}{{ entity.date|date('Y-m-d H:i:s') }}{% endif %}</td>
-            <td>
-                <ul>
-                    <li>
-                        <a href="{{ path('orders_show', { 'id': entity.id }) }}">show</a>
-                    </li>
-                </ul>
+            <td>{% if entity.date %}{{ entity.date|date('Y-m-d') }}{% endif %}</td>
+            <td width="70px">
+                <a class="btn pull-right" href="{{ path('orders_show', { 'id': entity.id }) }}">Show</a>
             </td>
         </tr>
     {% endfor %}

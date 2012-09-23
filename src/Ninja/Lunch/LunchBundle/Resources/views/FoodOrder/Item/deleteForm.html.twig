@@ -1,0 +1,4 @@
+<form action="{{ path('order_items_delete', { 'item': entity.id, order: order.id }) }}" method="post" {{ form_enctype(form) }}>
+    {{ form_widget(form) }}
+    <i class="icon-trash"></i> <input type="submit" class="btn delete" value="Delete" />
+</form>

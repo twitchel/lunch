@@ -1,0 +1,42 @@
+{% extends 'NinjaLunchBundle::layout.base.twig' %}
+
+{% block headline %}
+    Profile for {{ user.username }}
+{% endblock %}
+
+{% block content %}
+<div class="row-fluid">
+    <div class="span2 profile-photo-container text-align-center">
+        <img class="profile-photo" alt="{{ user.username }}" src="{{ vich_uploader_asset(user, 'image')   | imagine_filter('profile_photo') }}" />
+    </div>
+    <div class="span10">
+        <table class="table table-hover">
+            <tr>
+                <th>Username: </th>
+                <td>{{ user.username | title }}</td>
+            </tr>
+            <tr>
+                <th>Email: </th>
+                <td>{{ user.email | title }}</td>
+            </tr>
+            <tr>
+                <th>Items Ordered: </th>
+                <td>{{ user.items | length }}</td>
+            </tr>
+            <tr>
+                <th>Faveourite Item: </th>
+                <td>{{ faveourite.item.name }} - <span class="label label-info">{{ faveourite.total }}</span></td>
+            </tr>faveourite
+            {% if is_granted('ROLE_SUPER_ADMIN') %}
+            <tr>
+                <th>Roles: </th>
+                <td>{{ user.roles | join(', ') }}</td>
+            </tr>
+            {% endif %}
+        </table>
+    </div>
+</div>
+<div class="btn-group">
+    <a class="btn btn-primary pull-right" href="{{ path('user_profile_edit', { username: user.username }) }}">Edit</a>
+</div>
+{% endblock %}
