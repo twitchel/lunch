@@ -1,7 +1,7 @@
 set :application, "Lunch"
 set :domain,      "lunch.codingninja.com.au"
 set :deploy_to,   "/var/www/lunch"
-set :shared_files,      ["app/config/parameters.yml", "composer.phar", "vendor"]
+set :shared_files,      ["app/config/parameters.yml", "composer.phar", "vendor", "web/uploads"]
 set :shared_children,     ["vendor"]
 set :asset_children,    []
 set :dump_assetic_assets, true
