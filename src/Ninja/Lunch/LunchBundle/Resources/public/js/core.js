@@ -1,4 +1,6 @@
-;;;;
+;;;
+var NinjaLunch = {};
+
 (function($) {
     function parsePayload(data) {
         console.log(data);

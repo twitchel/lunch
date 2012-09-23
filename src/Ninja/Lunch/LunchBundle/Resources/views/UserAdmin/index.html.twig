@@ -1,0 +1,58 @@
+{% extends "NinjaLunchBundle::layout.base.twig" %}
+{% block headline %}
+Edit item
+{% endblock %}
+{% block content %}
+
+<h1>User list</h1>
+
+<table class="records_list">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Username</th>
+            <th>Usernamecanonical</th>
+            <th>Email</th>
+            <th>Emailcanonical</th>
+            <th>Enabled</th>
+            <th>Lastlogin</th>
+            <th>Locked</th>
+            <th>Expired</th>
+            <th>Passwordrequestedat</th>
+            <th>Roles</th>
+            <th>Avatarname</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+    {% for entity in entities %}
+        <tr>
+            <td>{{ entity.id }}</td>
+            <td><a href="{{ path('admin_user_show', { 'id': entity.id }) }}">{{ entity.username }}</a></td>
+            <td>{{ entity.usernameCanonical }}</td>
+            <td>{{ entity.email }}</td>
+            <td>{{ entity.emailCanonical }}</td>
+            <td>{{ entity.enabled }}</td>
+            <td>{% if entity.lastLogin %}{{ entity.lastLogin|date('Y-m-d H:i:s') }}{% endif %}</td>
+            <td>{{ entity.locked }}</td>
+            <td>{{ entity.expired }}</td>
+            <td>{% if entity.passwordRequestedAt %}{{ entity.passwordRequestedAt|date('Y-m-d H:i:s') }}{% endif %}</td>
+            <td>{{ entity.roles | join(', ') }}</td>
+            <td>{{ entity.avatarName }}</td>
+            <td>
+                <div class="btn-group">
+                    <a href="{{ path('admin_user_show', { 'id': entity.id }) }}" class="btn">show</a>
+                    <a href="{{ path('admin_user_edit', { 'id': entity.id }) }}" class="btn">edit</a>
+                </div>
+            </td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
+
+<div class="record_actions btn-group">
+    <a href="{{ path('admin_user_new') }}" class="btn">
+        Create a new entry
+    </a>
+</div>
+{% endblock %}
