@@ -19,6 +19,10 @@
         {{ 'security.login.remember_me'|trans({}, 'FOSUserBundle') }}
     </label>
 
-    <input class="btn btn-primary" type="submit" id="_submit" name="_submit" value="{{ 'security.login.submit'|trans({}, 'FOSUserBundle') }}" />
+    <div class="btn-group">
+        <input class="span6 btn btn-primary" type="submit" id="_submit" name="_submit" value="{{ 'security.login.submit'|trans({}, 'FOSUserBundle') }}" />
+
+        <a href="{{ path('fos_user_registration_register') }}" class="btn span6 pull-right">Register</a>
+    </div>
 </form>
 {% endblock fos_user_content %}
