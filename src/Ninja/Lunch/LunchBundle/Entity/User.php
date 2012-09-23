@@ -47,7 +47,7 @@ class User extends BaseUser
     protected $image;
 
     /**
-     * @ORM\Column(type="string", length=255, name="avatar_name")
+     * @ORM\Column(type="string", length=255, name="avatar_name", nullable=true)
      *
      * @var string $avatarName
      */
