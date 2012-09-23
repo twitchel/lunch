@@ -5,6 +5,7 @@
             <th>Name</th>
             <th>For</th>
             <th>Comments</th>
+            <th>Owing</th>
             <th>Actions</th>
         </tr>
     </thead>
@@ -33,6 +34,9 @@
             </td>
             <td>
                 {{ entity.comments }}
+            </td>
+            <td>
+                $ {{ entity.amountOwing | number_format(2) }}
             </td>
             <td width="60px">
                 <div class="btn-group pull-right">

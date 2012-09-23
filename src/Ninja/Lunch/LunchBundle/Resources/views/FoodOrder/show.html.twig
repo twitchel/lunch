@@ -137,12 +137,13 @@ Viewing order for {{ entity.date | date('Y-m-d') }}
         <ul>
         {% for item in entity.items if item.amountPaid < item.price %}
             <li><a data-dismiss="modal" href="#{{ 'addPayment' ~ modalPrefix ~ 'Modal-' ~ item.id }}" data-toggle="modal">{{ item.name }} for {{ item.user }}</a> - ${{ (item.price - item.amountPaid) | number_format(2) }} owing</li>
+            {% else %}
+            <li>Everyone has paid for their order</li>
         {% endfor %}
         </ul>
     </div>
     <div class="modal-footer">
         <a href="#" class="btn" data-dismiss="modal">Close</a>
-        <a href="#" class="btn btn-primary">Add Payment</a>
     </div>
 </div>
 {% endblock %}
