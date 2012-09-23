@@ -1,11 +1,24 @@
-{% macro participantList(participants, sep, before, after, class) %}
+{% macro participantList(participants, order, sep, before, after, class) %}
     {% for participant in participants %}
+    {% set amountOwing = 0 %}
     {{ before | default('') | raw }}
-    <a href="{{ path('user_profile', { username: app.user.username }) }}" class="{{ class | default('') }}">
-        {{ participant }}{% if loop.last == false %}{{ sep | default(',') | raw }} {% endif %}
+    {% if participant.isOwing(order) %}
+        {% set class = class ~ ' label-important' %}
+        {% set amountOwing = participant.getAmountOwing(order) %}
+    {% endif %}
+    <a href="{{ path('user_profile', { username: participant.username }) }}" class="label {{ class | default('label-info') }}" rel="tooltip" title="{{ amountOwing <= 0 ? (participant.username ~ ' has paid for their items') : (participant.username ~ ' owes $' ~ ( amountOwing | number_format(2) ) ~ ' still.') }}">
+        {{ participant.username }}{% if amountOwing > 0 %} ({{ amountOwing | number_format(2) }}){% endif %}{% if loop.last == false %}{{ sep | default(',') | raw }} {% endif %}
     </a>
     {{ after | default('') | raw }}
     {% else %}
         No one has participated in this order yet.
     {% endfor %}
+{% endmacro %}
+{% macro getLabelClass(orderCount) %}
+{{-
+    orderCount == 10 ? 'success' :
+    orderCount >= 6 ?  'info' :
+    orderCount >= 3 ?  'warning' :
+                       'important'
+-}}
 {% endmacro %}

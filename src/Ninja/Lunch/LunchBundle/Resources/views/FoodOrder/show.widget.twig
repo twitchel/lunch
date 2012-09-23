@@ -9,13 +9,7 @@ Viewing order for {{ entity.date | date('Y-m-d') }}
 {% block content %}
 
 {% set orderCount = entity.items | length %}
-{% set
-    itemLabelClass =
-        orderCount == 10 ? 'success' :
-        orderCount >= 6 ?  'info' :
-        orderCount >= 3 ?  'warning' :
-                           'important'
-%}
+{% set itemLabelClass = macros.getLabelClass(orderCount) %}
 {% set participants = entity.participants %}
 
 <div class="row-fluid">
@@ -50,7 +44,7 @@ Viewing order for {{ entity.date | date('Y-m-d') }}
                     <div class="span12">
                         <div class="span12">
                             <h4>Participants</h4>
-                            {{ macros.participantList(participants, '', '', '', 'label label-info') }}
+                            {{ macros.participantList(participants, entity) }}
                         </div>
                     </div>
                 </div>

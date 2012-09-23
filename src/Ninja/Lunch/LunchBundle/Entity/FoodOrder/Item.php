@@ -203,6 +203,10 @@ class Item
         return $this->user;
     }
 
+    public function getAmountOwing() {
+        return $this->getPrice() - $this->getAmountPaid();
+    }
+
     public function __toString(){
         return (string) $this->getItem();
     }

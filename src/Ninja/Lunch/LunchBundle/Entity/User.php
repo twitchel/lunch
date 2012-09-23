@@ -107,4 +107,18 @@ class User extends BaseUser
         $this->image = $image;
         return $this;
     }
+    public function isOwing(FoodOrder $order) {
+        return $this->getAmountOwing($order) > 0;
+    }
+
+    public function getAmountOwing(FoodOrder $order) {
+        $owing = 0;
+        foreach($order->getItems() as $item) {
+            if($this->isUser($item->getUser())) {
+                $owing += $item->getAmountOwing();
+            }
+        }
+
+        return $owing;
+    }
 }

@@ -89,6 +89,7 @@ class PaymentController extends Controller
         if($form->isValid()){
             $this->em->persist($entity);
             $this->em->flush();
+            $this->session->getFlashBag()->add('success', sprintf('Successfully put $%5.2f towards %s', $entity->getAmountPaid(), $entity->getName()));
             return $this->redirect($this->generateUrl('orders_show', array( 'id' => $entity->getOrder()->getId())));
         }
 

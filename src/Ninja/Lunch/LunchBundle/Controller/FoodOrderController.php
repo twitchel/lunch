@@ -89,9 +89,9 @@ class FoodOrderController extends Controller
     {
         $entity = $this->getOrder($id);
 
-        return array(
-            'entity'      => $entity,
-        );
+        return $this->render(sprintf('NinjaLunchBundle:FoodOrder:show.%s.twig', $_format), array(
+            'entity' => $entity
+        ));
     }
 
     /**
