@@ -1,6 +1,9 @@
-<h1>FoodItem list</h1>
-
-<table class="records_list">
+{% extends "NinjaLunchBundle::layout.base.twig" %}
+{% block headline %}
+Food Item List
+{% endblock %}
+{% block content %}
+<table class="records_list table table-bordered table-hover">
     <thead>
         <tr>
             <th>Id</th>
@@ -14,26 +17,21 @@
         <tr>
             <td><a href="{{ path('admin_food_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
             <td>{{ entity.name }}</td>
-            <td>{{ entity.price }}</td>
+            <td>${{ entity.price | number_format(2) }}</td>
             <td>
-                <ul>
-                    <li>
-                        <a href="{{ path('admin_food_show', { 'id': entity.id }) }}">show</a>
-                    </li>
-                    <li>
-                        <a href="{{ path('admin_food_edit', { 'id': entity.id }) }}">edit</a>
-                    </li>
-                </ul>
+                <div class="btn-group">
+                    <a href="{{ path('admin_food_show', { 'id': entity.id }) }}" class="btn">show</a>
+                    <a href="{{ path('admin_food_edit', { 'id': entity.id }) }}" class="btn">edit</a>
+                </div>
             </td>
         </tr>
     {% endfor %}
     </tbody>
 </table>
 
-<ul>
-    <li>
-        <a href="{{ path('admin_food_new') }}">
-            Create a new entry
-        </a>
-    </li>
-</ul>
+<div class="btn-group">
+    <a href="{{ path('admin_food_new') }}" class="btn">
+        Create a new entry
+    </a>
+</div>
+{% endblock %}

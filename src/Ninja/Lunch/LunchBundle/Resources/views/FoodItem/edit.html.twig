@@ -1,22 +1,22 @@
-<h1>FoodItem edit</h1>
-
+{% extends "NinjaLunchBundle::layout.base.twig" %}
+{% block headline %}
+Edit Food Item
+{% endblock %}
+{% block content %}
 <form action="{{ path('admin_food_update', { 'id': entity.id }) }}" method="post" {{ form_enctype(edit_form) }}>
     {{ form_widget(edit_form) }}
     <p>
-        <button type="submit">Edit</button>
+        <button type="submit" class="btn btn-primary">Edit</button>
     </p>
 </form>
 
-<ul class="record_actions">
-    <li>
-        <a href="{{ path('admin_food') }}">
-            Back to the list
-        </a>
-    </li>
-    <li>
-        <form action="{{ path('admin_food_delete', { 'id': entity.id }) }}" method="post">
-            {{ form_widget(delete_form) }}
-            <button type="submit">Delete</button>
-        </form>
-    </li>
-</ul>
+<div class="record_actions btn-group">
+    <a href="{{ path('admin_food') }}" class="btn">
+        Back to the list
+    </a>
+    <form action="{{ path('admin_food_delete', { 'id': entity.id }) }}" method="post" class="btn">
+        {{ form_widget(delete_form) }}
+        <button type="submit">Delete</button>
+    </form>
+</div>
+{% endblock %}

@@ -1,16 +1,18 @@
-<h1>FoodItem creation</h1>
-
+{% extends "NinjaLunchBundle::layout.base.twig" %}
+{% block headline %}
+New Item
+{% endblock %}
+{% block content %}
 <form action="{{ path('admin_food_create') }}" method="post" {{ form_enctype(form) }}>
     {{ form_widget(form) }}
     <p>
-        <button type="submit">Create</button>
+        <button type="submit" class="btn">Create</button>
     </p>
 </form>
 
-<ul class="record_actions">
-    <li>
-        <a href="{{ path('admin_food') }}">
-            Back to the list
-        </a>
-    </li>
-</ul>
+<div class="record_actions btn-group">
+    <a href="{{ path('admin_food') }}" class="btn">
+        Back to the list
+    </a>
+</div>
+{% endblock %}

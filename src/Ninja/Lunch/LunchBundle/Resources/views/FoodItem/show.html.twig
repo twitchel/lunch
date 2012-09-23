@@ -1,6 +1,9 @@
-<h1>FoodItem</h1>
-
-<table class="record_properties">
+{% extends "NinjaLunchBundle::layout.base.twig" %}
+{% block headline %}
+Food ITem
+{% endblock %}
+{% block content %}
+<table class="record_properties table-hover table">
     <tbody>
         <tr>
             <th>Id</th>
@@ -17,21 +20,16 @@
     </tbody>
 </table>
 
-<ul class="record_actions">
-    <li>
-        <a href="{{ path('admin_food') }}">
-            Back to the list
-        </a>
-    </li>
-    <li>
-        <a href="{{ path('admin_food_edit', { 'id': entity.id }) }}">
-            Edit
-        </a>
-    </li>
-    <li>
-        <form action="{{ path('admin_food_delete', { 'id': entity.id }) }}" method="post">
-            {{ form_widget(delete_form) }}
-            <button type="submit">Delete</button>
-        </form>
-    </li>
-</ul>
+<div class="record_actions btn-group">
+    <a href="{{ path('admin_food') }}" class="btn">
+        Back to the list
+    </a>
+    <a href="{{ path('admin_food_edit', { 'id': entity.id }) }}" class="btn">
+        Edit
+    </a>
+    <form action="{{ path('admin_food_delete', { 'id': entity.id }) }}" method="post" class="btn">
+        {{ form_widget(delete_form) }}
+        <button type="submit">Delete</button>
+    </form>
+</div>
+{% endblock %}
