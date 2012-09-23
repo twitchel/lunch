@@ -21,6 +21,8 @@
             {{ participant.username }}{% if hasPaid == false %} ({{ amountOwing | number_format(2) }}){% endif %}
         </a>
         {{ opts.after | default('') | raw }}
+        {% else if(opts.onlyOwing == true) %}
+            Everyone has paid for their order
         {% else %}
             No one has participated in this order yet.
         {% endfor %}
