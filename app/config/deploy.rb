@@ -4,7 +4,7 @@ set :deploy_to,   "/var/www/lunch"
 set :shared_files,      ["app/config/parameters.yml", "composer.phar", "vendor"]
 set :shared_children,     ["vendor"]
 set :asset_children,    []
-set :dump_assetic_assets, false
+set :dump_assetic_assets, true
 set :dump_assets, true
 set :deploy_via,  :remote_cache
 set :app_path,    "app"

@@ -1,15 +1,16 @@
-{% macro participantList(participants, order, sep, before, after, class) %}
-    {% for participant in participants %}
+{% macro participantList(participants, order, class, opts) %}
+    {% set opts = opts | default({}) | merge({onlyOwing: false, sep: ',', before: '', after: ''}) %}
+    {% for participant in participants if (opts.onlyOwing == false or (opts.onlyOwing == true and participant.getAmountOwing(order) > 0)) %}
     {% set amountOwing = 0 %}
-    {{ before | default('') | raw }}
-    {% if participant.isOwing(order) %}
+    {{ opts.before | default('') | raw }}
+    {% if participant.isOwing(order)  %}
         {% set class = class ~ ' label-important' %}
         {% set amountOwing = participant.getAmountOwing(order) %}
     {% endif %}
     <a href="{{ path('user_profile', { username: participant.username }) }}" class="label {{ class | default('label-info') }}" rel="tooltip" title="{{ amountOwing <= 0 ? (participant.username ~ ' has paid for their items') : (participant.username ~ ' owes $' ~ ( amountOwing | number_format(2) ) ~ ' still.') }}">
-        {{ participant.username }}{% if amountOwing > 0 %} ({{ amountOwing | number_format(2) }}){% endif %}{% if loop.last == false %}{{ sep | default(',') | raw }} {% endif %}
+        {{ participant.username }}{% if amountOwing > 0 %} ({{ amountOwing | number_format(2) }}){% endif %}{% if loop.last | default(true) == false %}{{ opts.sep | default(',') | raw }} {% endif %}
     </a>
-    {{ after | default('') | raw }}
+    {{ opts.after | default('') | raw }}
     {% else %}
         No one has participated in this order yet.
     {% endfor %}

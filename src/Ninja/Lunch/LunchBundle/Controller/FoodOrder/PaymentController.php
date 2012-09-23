@@ -29,6 +29,11 @@ class PaymentController extends Controller
     private $em;
 
     /**
+     * @DI\Inject("session")
+     */
+    private $session;
+
+    /**
      *
      */
     private $request;

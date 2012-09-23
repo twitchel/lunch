@@ -38,6 +38,9 @@ Viewing order for {{ entity.date | date('Y-m-d') }}
                     <div class="span4">
                         <h4>Owing</h4>
                         <p class="huge-text">$ {{ entity.amountOwing | number_format(2) }}</p>
+                        <p>
+                            {{ macros.participantList(participants, entity, '', {onlyOwing: true}) }}
+                        </p>
                     </div>
                 </div>
                 <div class="row-fluid">
