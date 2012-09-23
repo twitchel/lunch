@@ -36,16 +36,19 @@ class ItemRepository extends EntityRepository
      *
      * @return Paginator The paginator
      */
-    public function getPaginatedList($order, $page = 1, $perPage = 10){
+    public function getPaginatedList($order, $page = 1, $perPage = 20){
         $qb = $this->createQueryBuilder('i');
 
         $qb
             ->select('i', 'o', 'it')
+
             ->innerJoin('i.order', 'o')
             ->innerJoin('i.item', 'it')
-            ->andWhere($qb->expr()->eq('o.id', ':idOrder'))
+
+            ->orderBy ($qb->expr()->desc('i.id'))
+            ->andWhere($qb->expr()->eq  ('o.id', ':idOrder'))
+
             ->setParameter('idOrder', $order)
-            ->orderBy($qb->expr()->desc('i.id'))
         ;
 
         return $this->paginator->paginate(
