@@ -37,7 +37,7 @@ class FoodOrderRepository extends EntityRepository
         $qb = $this->createQueryBuilder('fo');
 
         $qb
-            ->innerJoin('fo.items', 'i')
+            ->leftJoin('fo.items', 'i')
             ->orderBy($qb->expr()->desc('fo.id'))
         ;
 

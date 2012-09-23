@@ -40,7 +40,7 @@ class ItemRepository extends EntityRepository
         $qb = $this->createQueryBuilder('i');
 
         $qb
-            ->innerJoin('i.order', 'o')
+            ->leftJoin('i.order', 'o')
             ->andWhere($qb->expr()->eq('o.id', ':idOrder'))
             ->setParameter('idOrder', $order)
             ->orderBy($qb->expr()->desc('i.id'))
