@@ -142,12 +142,11 @@ class ItemController extends Controller
         $form->bind($request);
 
         if ($form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
             $entity->setUser($this->getUser());
-            $em->persist($entity);
-            $em->flush();
+            $this->em->persist($entity);
+            $this->em->flush();
             $this->aclManager->grant($entity);;
-            $this->session->getFlashBag()->add('success', 'Your item was created!');
+            $this->session->getFlashBag()->add('success', 'Your item was created and added to the order!');
 
             return $this->redirect($this->generateUrl('order_items_show', array('id' => $entity->getId())));
         }

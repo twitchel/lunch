@@ -43,6 +43,7 @@ class ItemRepository extends EntityRepository
             ->innerJoin('i.order', 'o')
             ->andWhere($qb->expr()->eq('o.id', ':idOrder'))
             ->setParameter('idOrder', $order)
+            ->orderBy($qb->expr()->desc('i.id'))
         ;
 
         return $this->paginator->paginate(

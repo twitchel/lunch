@@ -47,26 +47,13 @@ class FoodOrderController extends Controller
      */
     public function indexAction()
     {
-        $em = $this->getDoctrine()->getManager();
-
-        $entities = $em->getRepository('NinjaLunchBundle:FoodOrder')->findAll();
+        $page = $this->request->get('page', 1);
+        $entities = $this->em->getRepository('NinjaLunchBundle:FoodOrder')->getPaginatedList($page, 10);
 
         return array(
             'entities' => $entities,
         );
     }
-
-    /**
-     * Stats view
-     *
-     * @Route("/stats", name="orders_stats")
-     * @Template()
-     */
-    public function statsAction()
-    {
-        return array('stats' => array());
-    }
-
     /**
      * Lists all FoodOrder entities.
      *
@@ -108,6 +95,8 @@ class FoodOrderController extends Controller
 
         $this->em->persist($entity);
         $this->em->flush();
+
+        $this->session->getFlashBag()->add('success', 'The order was locked!');
 
         return $this->redirect($this->generateUrl('orders_show', array('id' => $entity->getId())));
     }

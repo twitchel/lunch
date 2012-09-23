@@ -3,6 +3,7 @@
 namespace Ninja\Lunch\LunchBundle\Entity;
 
 use Doctrine\ORM\EntityRepository;
+use JMS\DiExtraBundle\Annotation as DI;
 
 /**
  * FoodOrderRepository
@@ -12,6 +13,40 @@ use Doctrine\ORM\EntityRepository;
  */
 class FoodOrderRepository extends EntityRepository
 {
+    private $paginator;
+
+    /**
+     * @DI\InjectParams({
+     *     "paginator" = @DI\Inject("knp_paginator")
+     * })
+     */
+    public function setPaginator($paginator){
+        $this->paginator = $paginator;
+    }
+
+    /**
+     * Get the recent orders for a user
+     *
+     * @param integer $id The id of the order
+     * @param integer $id The current page
+     * @param integer $id The amount of items to show per page
+     *
+     * @return Paginator The paginator
+     */
+    public function getPaginatedList($page, $perPage){
+        $qb = $this->createQueryBuilder('fo');
+
+        $qb
+            ->innerJoin('fo.items', 'i')
+            ->orderBy($qb->expr()->desc('fo.id'))
+        ;
+
+        return $this->paginator->paginate(
+            $qb->getQuery(),
+            $page,
+            $perPage
+        );
+    }
     /**
      *
      * Hide's the logic for what to do when no current order exists

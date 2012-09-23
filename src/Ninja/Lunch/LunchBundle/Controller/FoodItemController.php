@@ -111,6 +111,8 @@ class FoodItemController extends Controller
             $this->em->persist($entity);
             $this->em->flush();
 
+            $this->session->getFlashBag()->add('success', 'The FoodItem has been created!');
+
             return $this->redirect($this->generateUrl('admin_food_show', array('id' => $entity->getId())));
         }
 
@@ -128,9 +130,7 @@ class FoodItemController extends Controller
      */
     public function editAction($id)
     {
-        $em = $this->getDoctrine()->getManager();
-
-        $entity = $em->getRepository('NinjaLunchBundle:FoodItem')->find($id);
+        $entity = $this->repo->find($id);
 
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find FoodItem entity.');
@@ -155,9 +155,7 @@ class FoodItemController extends Controller
      */
     public function updateAction(Request $request, $id)
     {
-        $em = $this->getDoctrine()->getManager();
-
-        $entity = $em->getRepository('NinjaLunchBundle:FoodItem')->find($id);
+        $entity = $this->repo->find($id);
 
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find FoodItem entity.');
@@ -168,8 +166,10 @@ class FoodItemController extends Controller
         $editForm->bind($request);
 
         if ($editForm->isValid()) {
-            $em->persist($entity);
-            $em->flush();
+            $this->em->persist($entity);
+            $this->em->flush();
+
+            $this->session->getFlashBag()->add('success', 'The FoodItem has been updated!');
 
             return $this->redirect($this->generateUrl('admin_food_edit', array('id' => $id)));
         }
@@ -193,15 +193,16 @@ class FoodItemController extends Controller
         $form->bind($request);
 
         if ($form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-            $entity = $em->getRepository('NinjaLunchBundle:FoodItem')->find($id);
+            $entity = $this->repo->find($id);
 
             if (!$entity) {
                 throw $this->createNotFoundException('Unable to find FoodItem entity.');
             }
 
-            $em->remove($entity);
-            $em->flush();
+            $this->em->remove($entity);
+            $this->em->flush();
+
+            $this->session->getFlashBag()->add('success', 'The FoodItem has been deleted!');
         }
 
         return $this->redirect($this->generateUrl('admin_food'));

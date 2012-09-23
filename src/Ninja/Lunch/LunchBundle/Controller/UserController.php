@@ -109,6 +109,8 @@ class UserController extends Controller
         if($form->isValid()) {
             $this->repo->updateUser($user);
 
+            $this->session->getFlashBag()->add('success', 'User has been updated!');
+
             return $this->redirect($this->generateUrl('user_profile_details', array(
                 'username' => $username
             )));
