@@ -1,26 +1,39 @@
 {% macro participantList(participants, order, class, opts) %}
-    {% set opts = {onlyOwing: false, sep: ',', before: '', after: ''} | merge(opts | default({})) %}
-    {% for participant in participants if (opts.onlyOwing == false or (opts.onlyOwing == true and participant.getAmountOwing(order) > 0)) %}
-    {% set amountOwing = 0 %}
-    {% if loop.first == false %}{{ opts.sep | raw }} {% endif %}
-    {{ opts.before | default('') | raw }}
-    {% if participant.isOwing(order)  %}
-        {% set class = class ~ ' label-important' %}
-        {% set amountOwing = participant.getAmountOwing(order) %}
-    {% endif %}
-    <a href="{{ path('user_profile', { username: participant.username }) }}" class="label {{ class | default('label-info') }}" rel="tooltip" title="{{ amountOwing <= 0 ? (participant.username ~ ' has paid for their items') : (participant.username ~ ' owes $' ~ ( amountOwing | number_format(2) ) ~ ' still.') }}">
-        {{ participant.username }}{% if amountOwing > 0 %} ({{ amountOwing | number_format(2) }}){% endif %}
-    </a>
-    {{ opts.after | default('') | raw }}
-    {% else %}
-        No one has participated in this order yet.
-    {% endfor %}
+    {% spaceless %}
+        {% set opts = {onlyOwing: false, sep: ',', before: '', after: ''} | merge(opts | default({})) %}
+        {% set class = class | default('') %}
+        {% for participant in participants if (opts.onlyOwing == false or (opts.onlyOwing == true and participant.getAmountOwing(order) > 0)) %}
+
+        {% set amountOwing = 0 %}
+        {% set hasPaid = true %}
+
+        {% if loop.first == false %}{{ opts.sep | raw }} {% endif %}
+
+        {{ opts.before | default('') | raw }}
+
+        {% if participant.isOwing(order)  %}
+            {% set class = class ~ ' label-important' %}
+            {% set amountOwing = participant.getAmountOwing(order) %}
+            {% set hasPaid = false %}
+        {% endif %}
+
+        <a href="{{ path('user_profile', { username: participant.username }) }}" class="label {{ class | default('label-info') }}" rel="tooltip" title="{{ hasPaid ? (participant.username ~ ' has paid for their items') : (participant.username ~ ' owes $' ~ ( amountOwing | number_format(2) ) ~ ' still.') }}">
+            {{ participant.username }}{% if hasPaid == false %} ({{ amountOwing | number_format(2) }}){% endif %}
+        </a>
+        {{ opts.after | default('') | raw }}
+        {% else %}
+            No one has participated in this order yet.
+        {% endfor %}
+    {% endspaceless %}
 {% endmacro %}
+
 {% macro getLabelClass(orderCount) %}
-{{-
-    orderCount == 10 ? 'success' :
-    orderCount >= 6 ?  'info' :
-    orderCount >= 3 ?  'warning' :
-                       'important'
--}}
+    {% spaceless %}
+    {{
+        orderCount == 10 ? 'success' :
+        orderCount >= 6 ?  'info' :
+        orderCount >= 3 ?  'warning' :
+                           'important'
+    }}
+    {% endspaceless %}
 {% endmacro %}
