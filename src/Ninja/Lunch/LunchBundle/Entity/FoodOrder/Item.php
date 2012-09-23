@@ -207,6 +207,10 @@ class Item
         return $this->getPrice() - $this->getAmountPaid();
     }
 
+    public function isPaid() {
+        return $this->getAmountOwing() <= 0;
+    }
+
     public function __toString(){
         return (string) $this->getItem();
     }

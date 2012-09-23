@@ -42,9 +42,9 @@ Viewing order for {{ entity.date | date('Y-m-d') }}
         <ul class="nav nav-tabs" id="order-item-tabs">
             {% block before_tabs %}{% endblock before_tabs %}
             {% block tabs %}
-            <li class="active"><a data-toggle="tab" href="#add-item">Add Item</a></li>
+            <li{% if entity.locked == false %} class="active"{% endif %}><a data-toggle="tab" href="#add-item">Add Item</a></li>
             <li><a data-toggle="tab" href="#view-items">View Items</a></li>
-            <li><a data-toggle="tab" href="#view-report">Order Report</a></li>
+            <li{% if entity.locked == true %} class="active"{% endif %}><a data-toggle="tab" href="#view-report">Order Report</a></li>
             {% endblock tabs %}
             {% block after_tabs %}{% endblock after_tabs %}
         </ul>
@@ -99,7 +99,7 @@ Viewing order for {{ entity.date | date('Y-m-d') }}
                     {% render "NinjaLunchBundle:FoodOrder/Item:list" with { order: entity.id, modal_prefix: modalPrefix }, { standalone: true } %}
                 </div>
             </div>
-            <div class="tab-pane active" id="add-item">
+            <div class="tab-pane {% if entity.locked == false %}active{% endif %}" id="add-item">
                 <h2>Add Item</h2>
                 <div class="add-item-wrap">
                     {% if entity.locked %}
@@ -114,7 +114,7 @@ Viewing order for {{ entity.date | date('Y-m-d') }}
                     {% endif %}
                 </div>
             </div>
-            <div class="tab-pane" id="view-report">
+            <div class="tab-pane {% if entity.locked == true %}active{% endif %}" id="view-report">
                 <h2>View Report</h2>
                 <div class="view-report-wrap">
                     {% render "NinjaLunchBundle:FoodOrder/Item:report" with { order: entity.id }, { standalone: true } %}

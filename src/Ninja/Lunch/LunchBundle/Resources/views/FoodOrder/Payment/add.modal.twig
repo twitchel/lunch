@@ -5,6 +5,11 @@
             <h3>Add Payment</h3>
         </div>
         <div class="modal-body">
+            {% if entity.paid == false %}
+            <p>
+                There is currently ${{ entity.amountOwing | number_format(2) }} owing
+            </p>
+            {% endif %}
             {{ form_widget(form) }}
         </div>
         <div class="modal-footer">
