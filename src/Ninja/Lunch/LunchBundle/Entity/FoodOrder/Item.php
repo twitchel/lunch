@@ -24,7 +24,7 @@ class Item
     /**
      * @var string $comments
      *
-     * @ORM\Column(name="comments", type="text")
+     * @ORM\Column(name="comments", type="text", nullable=true)
      */
     private $comments;
 

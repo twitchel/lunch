@@ -12,7 +12,7 @@ class ItemType extends AbstractType
     {
         $builder
             ->add('item')
-            ->add('comments')
+            ->add('comments', null, array( 'required' => false ))
         ;
     }
 
